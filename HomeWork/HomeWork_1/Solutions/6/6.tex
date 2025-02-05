@@ -1,0 +1,149 @@
+\documentclass{article}
+\usepackage{helvet}
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\title{Assignment 1: CS 754, Spring 2024-25}
+\author{
+\IEEEauthorblockN{
+    \begin{tabular}{cccc}
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Amitesh Shekhar\\
+            IIT Bombay\\
+            22b0014@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Anupam Rawat\\
+            IIT Bombay\\
+            22b3982@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Toshan Achintya Golla\\
+            IIT Bombay\\
+            22b2234@iitb.ac.in
+        \end{minipage} \\
+        \\ 
+    \end{tabular}
+}
+}
+
+\date{February 01, 2025}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem,graphicx}
+\usepackage[margin=0.5in]{geometry}
+
+\begin{document}
+\maketitle
+
+\\
+\\
+
+\textbf{Declaration:} The work submitted is our own, and
+we have adhered to the principles of academic honesty while completing and submitting this work. We have not
+referred to any unauthorized sources, and we have not used generative AI tools for the work submitted here.
+
+\begin{enumerate}
+    \item This homework problem is inspired from one of the questions asked to me in class. Consider a signal $g$ with $n$ elements where $g$ is the Dirac comb consisting of spikes separated by $\sqrt{n}$ in time. Let $F$ be the support set of $g$ in the Fourier domain (i.e. the set of frequencies at which its Fourier transform is non-zero), and let $\Omega$ be the set of frequencies at which the Fourier transform of $g$ is measured. Let us assume that $\Omega$ is chosen uniformly at random. We want to derive lower bounds on the size of $\Omega$ in order to be able to reconstruct $g$ exactly from these measurements with a probability of at least $1-n^{-M}$ where $M > 0$. To this end, answer the following questions. Do not merely quote theorems or results, but answer this from first principles: \textsf{[5+5+5=15 points]}
+
+    \begin{enumerate}
+            \item
+                If the intersection of $\Omega$ with $F$ is a null set, then we definitely have no chance of recovering $g$. What is the probability of this happening in terms of $|\Omega|, n, |F|$? Here $|F|$ stands for the cardinality of $F$.
+            \\
+    
+        \makebox[0pt][l]{\hspace{-7pt}\textit{Soln:}} % Aligns "Answer:" to the left
+    \\
+    We have total n frequencies, out of which g is non-zero at ${|F|}$ points. We want to select $|\Omega|$ number of points such that $\Omega$ and $F$ are disjoint sets. The probability can therefore be written as:
+    \[
+    \frac{\binom{n-|F|}{|\Omega|}}{\binom{n}{|\Omega|}}
+    \]
+            \item 
+                Argue that this probability is \textbf{upper bounded} by $(1-|\Omega|/n)^{|F|}$.
+            \\
+    
+        \makebox[0pt][l]{\hspace{-7pt}\textit{Soln:}} % Aligns "Answer:" to the left
+    \\
+    We can expand the probability obatined in part (a) as follows:
+    \[
+    \frac{(n-|F|)! (n-|\Omega|)!}{(n-|F|-|\Omega|)! n!}
+    \]
+    This gives:
+    \[
+    \frac{(n-|\Omega|)(n-|\Omega|-1).........(n-|F|-|\Omega|+1)}{n(n-1)..........(n-|F|+1)}
+    \]
+    which further simplifies to:
+    \[
+    (1-\frac{|\Omega|}{n})(1-\frac{|\Omega|}{n-1})............(1-\frac{|\Omega|}{n-|F|+1})
+    \]
+    which is \textbf{upper bounded} by \[
+    (1-\frac{|\Omega|}{n})^{|F|}
+    \]
+    
+            \item 
+                Hence derive a lower bound on $|\Omega|$. Use the assumption that $|\Omega| \ll n$ so that $\log(1-|\Omega|/n) \approx -|\Omega|/n$.
+        \\
+    
+        \makebox[0pt][l]{\hspace{-7pt}\textit{Soln:}} % Aligns "Answer:" to the left
+    \\
+    (c) To ensure exact reconstruction of \(g\) with probability at least \(1 - n^{-M}\), we require:
+
+\[
+P(\Omega \cap F = \emptyset) \leq n^{-M}.
+\]
+
+Using the \textbf{upper bound} from part (b):
+
+\[
+\left(1 - \frac{|\Omega|}{n}\right)^{|F|} \leq n^{-M}.
+\]
+
+Taking the natural logarithm on both sides and using the approximation \(\log(1 - x) \approx -x\) for \(x \ll 1\) (since \(|\Omega| \ll n\)):
+
+\[
+|F| \cdot \log\left(1 - \frac{|\Omega|}{n}\right) \leq -M \log n.
+\]
+
+Substituting \(\log(1 - \frac{|\Omega|}{n}) \approx -\frac{|\Omega|}{n}\):
+
+\[
+|F| \cdot \left(-\frac{|\Omega|}{n}\right) \leq -M \log n.
+\]
+
+Simplifying:
+
+\[
+\frac{|\Omega||F|}{n} \geq M \log n.
+\]
+
+Thus, the lower bound on \(|\Omega|\) is:
+
+\[
+|\Omega| \geq \frac{M n \log n}{|F|}.
+\]
+
+    
+        \end{enumerate}
+\end{enumerate}
+\end{document}

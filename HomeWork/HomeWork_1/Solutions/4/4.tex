@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{helvet}
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\title{Assignment 1: CS 754, Spring 2024-25}
+\author{
+\IEEEauthorblockN{
+    \begin{tabular}{cccc}
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Amitesh Shekhar\\
+            IIT Bombay\\
+            22b0014@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Anupam Rawat\\
+            IIT Bombay\\
+            22b3982@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Toshan Achintya Golla\\
+            IIT Bombay\\
+            22b2234@iitb.ac.in
+        \end{minipage} \\
+        \\ 
+    \end{tabular}
+}
+}
+
+\date{February 01, 2025}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem,graphicx}
+\usepackage[margin=0.5in]{geometry}
+
+\begin{document}
+\maketitle
+
+\\
+\\
+
+\textbf{Declaration:} The work submitted is our own, and
+we have adhered to the principles of academic honesty while completing and submitting this work. We have not
+referred to any unauthorized sources, and we have not used generative AI tools for the work submitted here.
+
+\begin{enumerate}
+    \item 
+        Please do a google search to find out some application of compressed sensing to efficiently sense some sort of signal. In your report, state the application and state which research paper or article you are referring to. Clearly explain how the measurements are acquired, what the underlying unknown signal is and what the measurement matrix is. Please exclude applications to compressive MRI, pooled testing or any compressive architecture which is covered in the slides on CS systems. \textsf{[15 points]}
+    \\
+        \makebox[0pt][l]{\hspace{-7pt}\textit{Soln:}} % Aligns "Answer:" to the left
+    \\
+    Compressed Sensing (CS) has been effectively applied to face recognition to enhance efficiency and robustness. A notable example is the approach presented in the paper \textit{"Face Recognition using Compressive Sensing"} by Slavko Kovacevic, Vuko Djaletic, and Jelena Vukovic \cite{kovacevic2019face}.
+
+    \textbf{Measurement Acquisition:} In this approach, the original facial image is divided into non-overlapping blocks. Each block undergoes a transformation using a measurement matrix, resulting in a set of compressed measurements. This process reduces the dimensionality of the data while preserving essential information.
+
+    Mathematically, if $\mathbf{x} \in \mathbb{R}^N$ represents a vectorized image block, the compressed measurement $\mathbf{y} \in \mathbb{R}^M$ (with $M < N$) is obtained by:
+
+    \begin{equation}
+        \mathbf{y} = \mathbf{\Phi} \mathbf{x}
+    \end{equation}
+
+    where $\mathbf{\Phi} \in \mathbb{R}^{M \times N}$ is the measurement matrix. \\
+
+    \textbf{Underlying Unknown Signal:} The unknown signal in this context is the original facial image, represented as a high-dimensional vector $\mathbf{x}$. Due to the inherent sparsity in facial images—where significant information is concentrated in specific features—CS techniques can effectively reconstruct the image from fewer samples. \\
+
+    \textbf{Measurement Matrix:} The measurement matrix $\mathbf{\Phi}$ used in this method is designed to capture the most informative aspects of the facial image blocks. By applying this matrix to each block, the system obtains compressed measurements that retain the critical features necessary for accurate face recognition. \\
+
+    \textbf{Conclusion:} This CS-based face recognition framework demonstrates that it's possible to achieve efficient and robust recognition by reconstructing facial images from a limited number of measurements. This highlights the potential of CS in reducing data acquisition and storage demands in image processing applications. \\
+
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+    \bibitem{kovacevic2019face} 
+    S. Kovacevic, V. Djaletic, and J. Vukovic, "Face Recognition using Compressive Sensing," arXiv preprint arXiv:1902.05388, 2019.
+\end{thebibliography}
+
+    
+\end{enumerate}
+\end{document}

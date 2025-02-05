@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage{helvet}
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\title{Assignment 1: CS 754, Spring 2024-25}
+\author{
+\IEEEauthorblockN{
+    \begin{tabular}{cccc}
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Amitesh Shekhar\\
+            IIT Bombay\\
+            22b0014@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Anupam Rawat\\
+            IIT Bombay\\
+            22b3982@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Toshan Achintya Golla\\
+            IIT Bombay\\
+            22b2234@iitb.ac.in
+        \end{minipage} \\
+        \\ 
+    \end{tabular}
+}
+}
+
+\date{February 01, 2025}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem,graphicx}
+\usepackage[margin=0.5in]{geometry}
+
+\begin{document}
+\maketitle
+
+\\
+\\
+
+\textbf{Declaration:} The work submitted is our own, and
+we have adhered to the principles of academic honesty while completing and submitting this work. We have not
+referred to any unauthorized sources, and we have not used generative AI tools for the work submitted here.
+
+\begin{enumerate}
+    \item 
+        Consider positive integers $s$ and $t$ such that $s < t$. Argue which of the following statements is true: (i) $\delta_s < \delta_t$, (ii) $\delta_t < \delta_s$, (iii) $\delta_s = \delta_t$, (iv) It is not possible to establish a precise equality/inequality between $\delta_s$ and $\delta_t$. \textsf{[10 points]}
+        \\
+            \makebox[0pt][l]{\hspace{-7pt}\textit{Soln:}} % Aligns "Answer:" to the left
+        \\
+
+        Let us define sets $\mathcal{S}$ and $\mathcal{T}$ in the following way:
+        \begin{itemize}
+            \item $\mathcal{S}$ : subset of $\{ 1,2, ..., n \}$ with $|\mathcal{S}| \leq s$
+            \item $\mathcal{T}$ : subset of $\{ 1,2, ..., n \}$ with $|\mathcal{T}| \leq t$
+        \end{itemize}
+
+        Since $s<t$, number of possible such subsets $\mathcal{S}$ is less than that of $\mathcal{T}$.\\
+
+        Lets denote the maximal and minimal eigen-values in for both the subsets:
+       \begin{align}
+            \lambda_{min,S} &= \underset{S,\theta}{\min} \frac{\|A_{S} \theta\|^{2}}{\|\theta\|^{2}} \\
+            \lambda_{max,S} &= \underset{S,\theta}{\max} \frac{\|A_{S} \theta\|^{2}}{\|\theta\|^{2}} \\
+            \lambda_{min,T} &= \underset{T,\theta}{\min} \frac{\|A_{T} \theta\|^{2}}{\|\theta\|^{2}} \\
+            \lambda_{max,T} &= \underset{T,\theta}{\max} \frac{\|A_{T} \theta\|^{2}}{\|\theta\|^{2}}
+    \end{align}
+
+    Since the number of possible sub-matrices covered by $\mathcal{S}$ is smaller than that covered by $\mathcal{T}$ and the one covered by the latter already contains the earlier one, i.e., $S \subset T$, we get:
+    \[ 
+        \lambda_{min,S} \geq \lambda_{min,T}
+    \]
+and,
+    \[ 
+        \lambda_{max,S} \leq \lambda_{max,T}
+    \]
+    $\implies$
+    \[
+        1-\lambda_{min,S} \leq \lambda_{min,T}
+    \]
+    \[
+        \lambda_{max,S}-1 \leq \lambda_{max,T}-1
+    \]
+    $\implies$
+    \[
+        max(1-\lambda_{min,S}, \lambda_{max,S}-1)) \leq max(1-\lambda_{min,T}, \lambda_{max,T}-1))
+    \]
+    
+    Also, since $\delta_s = max(1-\lambda_{min}, \lambda_{max}-1))$, we get:
+    $\delta_{s} \leq \delta_{t}$.
+
+    Therefore, statement (i) is always true while (iii) may or may not hold (it may happen that the minimal and maximal eigen-values are same for both s and t. In that case, RIC would be equal).
+
+
+        
+
+        
+\end{enumerate}
+\end{document}

@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage{helvet}
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\title{Assignment 1: CS 754, Spring 2024-25}
+\author{
+\IEEEauthorblockN{
+    \begin{tabular}{cccc}
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Amitesh Shekhar\\
+            IIT Bombay\\
+            22b0014@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Anupam Rawat\\
+            IIT Bombay\\
+            22b3982@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Toshan Achintya Golla\\
+            IIT Bombay\\
+            22b2234@iitb.ac.in
+        \end{minipage} \\
+        \\ 
+    \end{tabular}
+}
+}
+
+\date{February 01, 2025}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem,graphicx}
+\usepackage[margin=0.5in]{geometry}
+
+\begin{document}
+\maketitle
+
+\\
+\\
+
+\textbf{Declaration:} The work submitted is our own, and
+we have adhered to the principles of academic honesty while completing and submitting this work. We have not
+referred to any unauthorized sources, and we have not used generative AI tools for the work submitted here.
+
+\begin{enumerate}
+    \item 
+         Consider a $m \times n$ sensing matrix $\boldsymbol{A}$ ($m < n$) with order-$s$ restricted isometry constant (RIC) of $\delta_s$. Let $\mathcal{S}$ be a subset of up to $s$ elements from $\{1,2,...,n\}$. Let $\boldsymbol{A}_{\mathcal{S}}$ be a $m  \times |S|$ sub-matrix of $\boldsymbol{A}$ with columns corresponding to indices in $\mathcal{S}$. Let $\lambda_{max}$ be the maximum of the maximal eigenvalue of any matrix $\boldsymbol{A}^T_{\mathcal{S}} \boldsymbol{A}_{\mathcal{S}}$ (i.e. the maximum is taken across all possible subsets of size up to $s$). Let $\lambda_{min}$ be the minimum of the minimal eigenvalue of any matrix $\boldsymbol{A}^T_{\mathcal{S}} \boldsymbol{A}_{\mathcal{S}}$ (i.e. the minimum is taken across all possible subsets of size up to $s$). Then prove that $\delta_s = \textrm{max}(1-\lambda_{min},\lambda_{max}-1)$. \textsf{[15 points]}
+        
+        \\
+            \makebox[0pt][l]{\hspace{-7pt}\textit{Soln:}} % Aligns "Answer:" to the left
+        \\
+        $A_{MxN}$ is a sensing matrix which obeys RIP of order-s with RIC of $\delta_s $.\\
+        $\implies$
+        \[
+            (1-\delta_s )\ ||\theta||^{2} \leq ||A \theta||^{2} \leq (1+\delta_s)\ ||\theta||^{2}
+        \]
+        where $\theta$ is a s-sparse vector of dimension $n\times1$.\\
+        Now, we can extend this to include any sub-matrix $A_{S}$ of A of size $m \times |S|$ where S is a subset of $\{1,2,...,n\}$ of cardinality at-most s.\\
+        \[
+            (1-\delta_s )\ ||\theta||^{2} \leq ||A_{S} \theta||^{2} \leq (1+\delta_s)\ ||\theta||^{2}
+        \]
+        $\implies$
+        
+        \begin{equation}
+            (1-\delta_s )\ \leq \frac{||A_{S} \theta||^{2}}{||\theta||^{2}} \leq (1+\delta_s)
+        \end{equation}
+        We have seen in class that for a symmetric matrix $B^{T}B$, its maximum and minimum eigen-value $\lambda_{max}$ is given by:
+        \[
+            \lambda_{max} = \underset{x}{\max}  \frac{||Bx||^2}{||x||^2}
+        \]
+        \[
+            \lambda_{min} = \underset{x}{\min}  \frac{||Bx||^2}{||x||^2}
+        \]
+        where x is a column vector of compatible dimensions.\\
+
+        \vspace{2em}
+        Now, looking at the left-side inequality of equation (1), we obtain
+        \[ 
+            (1-\delta_s )\ \leq \frac{||A_{S} \theta||^{2}}{||\theta||^{2}}
+        \]
+        For this inequality to hold for all subsets S, $(1-\delta_s)$ must be smaller than $\underset{S, \theta}{min} \frac{||A_{S} \theta||^{2}}{||\theta||^{2}}$. \\
+        But this quantity is equal to $\lambda_{min}$ (according to the definition of minimal eigen-value).\\
+
+        \begin{align}
+        \therefore (1-\delta_s) \leq \lambda_{min}\\
+        \implies \delta_s \geq 1-\lambda_{min}
+        \end{align}
+        
+        Similarly, extending this argument to the right-side inequality of equation (1), we get:
+        \begin{align}
+        (1+\delta_s) \geq \lambda_{max}\\
+        \implies \delta_s \geq \lambda_{max} -1
+        \end{align}
+
+        Finally, From equations (3) and (5), we get:
+        \begin{align}
+            \delta_s \geq max(1-\lambda_{min}, \lambda_{max}-1)
+        \end{align}
+        Since, by definition, the RIC $\delta_s$ is taken to be the smallest possible constant satisfying the RIP property, we can replace the $\geq$ sign by an $=$\\
+        Therefore, 
+        \begin{equation}
+                 \delta_s = max(1-\lambda_{min}, \lambda_{max}-1)
+        \end{equation}
+        (proved)
+        
+        
+\end{enumerate}
+\end{document}
