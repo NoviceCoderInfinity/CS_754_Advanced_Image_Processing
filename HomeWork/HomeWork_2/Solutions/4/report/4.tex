@@ -1,0 +1,222 @@
+\documentclass{article}
+\usepackage{helvet}
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\title{Assignment 2: CS 754, Spring 2024-25}
+\author{
+\IEEEauthorblockN{
+    \begin{tabular}{cccc}
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Amitesh Shekhar\\
+            IIT Bombay\\
+            22b0014@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Anupam Rawat\\
+            IIT Bombay\\
+            22b3982@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Toshan Achintya Golla\\
+            IIT Bombay\\
+            22b2234@iitb.ac.in
+        \end{minipage} \\
+        \\ 
+    \end{tabular}
+}
+}
+
+\date{February 16, 2025}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem,graphicx}
+\usepackage[margin=0.5in]{geometry}
+
+\begin{document}
+\maketitle
+
+\textbf{Declaration:} The work submitted is our own, and
+we have adhered to the principles of academic honesty while completing and submitting this work. We have not
+referred to any unauthorized sources, and we have not used generative AI tools for the work submitted here.
+
+\begin{enumerate}
+\item A matrix $\boldsymbol{A} \in \mathbb{R}^{m \times n}$ where $m < n$ is said to satisfy the modified null space property (MNSP) relative to a set \textcolor{blue}{$S \subset [n] := \{1,2,...,n\}$} if for all $\boldsymbol{v} \in \textrm{nullspace}(\boldsymbol{A}) - \{\boldsymbol{0}\}$, we have \textcolor{blue}{$\|\boldsymbol{v}_S\|_1 < \|\boldsymbol{v}_{\bar{S}}\|_1$ where $\bar{S}$ stands for the complement of the set $S$}. The matrix $\boldsymbol{A}$ is said to satisfy MNSP of order $s$ if it satisfies the MNSP relative to any set $S \subset [n]$ where $|S| \leq s$. Now answer the following questions:
+\begin{enumerate}
+\item Consider a given matrix $\boldsymbol{A}$  and $\boldsymbol{v} \in \textrm{nullspace}(\boldsymbol{A}) - \{\boldsymbol{0}\}$. Suppose 
+the condition $\|\boldsymbol{v}_S\|_1 \leq \|\boldsymbol{v}_{\bar{S}}\|_1$ is true for set $S$ that contains the indices of the $s$ largest absolute value entries of $\boldsymbol{v}$. Then is this condition also true for any other set $S$ such that $|S| \leq s$? Why (not)?
+\item Show that the MNSP implies that $\|\boldsymbol{v}\|_1 < 2\sigma_{s,1}(\boldsymbol{v})$ for $\boldsymbol{v}  \in \textrm{nullspace}(\boldsymbol{A}) - \{\boldsymbol{0}\}$ where $\sigma_{s,1}(\boldsymbol{v}) := \textrm{inf}_{\|\boldsymbol{w}\|_0 \leq s} \|\boldsymbol{v} - \boldsymbol{w}\|_1$. 
+\item Given a matrix $\boldsymbol{A} \in \mathbb{R}^{m \times n}$ of size $m \times n$, any $s$-sparse vector $\boldsymbol{x} \in \mathbb{R}^n$ is a unique solution of the P1 problem with the constraint $\boldsymbol{y} = \boldsymbol{Ax}$ if and only if $\boldsymbol{A}$ satisfies the MNSP of order $s$. 
+\end{enumerate}
+\textsf{[4+4+8=16 points]}
+\\
+            \makebox[0pt][l]{\hspace{-7pt}\textit{Soln:}} % Aligns "Answer:" to the left
+\begin{enumerate}
+    \item Yes, this condition does necessarily hold for any other subset \( S \) with \( |S| \leq s \). Let $\boldsymbol{v} \in \textrm{nullspace}(\boldsymbol{A}) - \{\boldsymbol{0}\}$ and define \( S^* \) as the set containing the indices of the \( s \) largest (in absolute value) entries of \( v \). By the construction of \( S^* \), for any other subset \( S \subset \{1,2,\dots,n\} \) with \( |S| \le s \), we have
+\[
+\|v_S\|_1 \leq \|v_{S^*}\|_1.
+\]
+
+We are given that
+\[
+\|v_{S^*}\|_1 \leq \|v_{\overline{S^*}}\|_1,
+\]
+where \( \overline{S^*} \) denotes the complement of \( S^* \) in \( \{1,2,\dots,n\} \).
+
+Notice that for any such \( S \) with \( |S| \le s \), the complement \( \overline{S} \) satisfies
+\[
+\|v_{\overline{S}}\|_1 \geq \|v_{\overline{S^*}}\|_1,
+\]
+since \( S^* \) consists of the indices corresponding to the largest absolute values of \( v \), and hence \( \overline{S} \) must contain at least as much of the remaining (smaller) contributions as \( \overline{S^*} \) does.
+
+Combining the above inequalities, we obtain:
+\[
+\|v_S\|_1 \leq \|v_{S^*}\|_1 \leq \|v_{\overline{S^*}}\|_1 \leq \|v_{\overline{S}}\|_1.
+\]
+
+Thus, the condition
+\[
+\|v_S\|_1 \leq \|v_{\overline{S}}\|_1
+\]
+holds for any subset \( S \) with \( |S| \le s \).
+    \item We first recall that for a given vector \(\boldsymbol{v}\), its best \(s\)-term approximation error in the \(\ell_1\)-norm is defined as 
+\[
+\sigma_{s,1}(\boldsymbol{v}) := \inf_{\|\boldsymbol{w}\|_0 \le s} \|\boldsymbol{v} - \boldsymbol{w}\|_1.
+\]
+A natural choice is to take \(\boldsymbol{w}\) as the vector \(\boldsymbol{v}_S\) obtained by retaining the \(s\) largest (in absolute value) entries of \(\boldsymbol{v}\) and setting the rest to zero. If we denote by \(S\) the index set corresponding to these entries, then
+\[
+\sigma_{s,1}(\boldsymbol{v}) = \|\boldsymbol{v}_{\bar{S}}\|_1,
+\]
+where \(\bar{S}\) denotes the complement of \(S\).
+ \\
+
+Assume that \(\boldsymbol{A}\) satisfies the Modified Null Space Property (MNSP) of order \(s\); that is, for every set \(S' \subset [n]\) with \(|S'|\le s\) and every nonzero \(\boldsymbol{v} \in \textrm{nullspace}(\boldsymbol{A})\), we have
+\[
+\|\boldsymbol{v}_{S'}\|_1 < \|\boldsymbol{v}_{\bar{S'}}\|_1.
+\]
+Let \(\boldsymbol{v}\in \textrm{nullspace}(\boldsymbol{A})\setminus \{0\}\) and choose \(S\) to be the set of indices corresponding to the \(s\) largest (in absolute value) entries of \(\boldsymbol{v}\). Then, by the MNSP,
+\[
+\|\boldsymbol{v}_S\|_1 < \|\boldsymbol{v}_{\bar{S}}\|_1.
+\]
+Thus, we can write
+\[
+\|\boldsymbol{v}\|_1 = \|\boldsymbol{v}_S\|_1 + \|\boldsymbol{v}_{\bar{S}}\|_1 < \|\boldsymbol{v}_{\bar{S}}\|_1 + \|\boldsymbol{v}_{\bar{S}}\|_1 = 2\|\boldsymbol{v}_{\bar{S}}\|_1
+\]
+So,
+\[
+\|\boldsymbol{v}\|_1 < 2\|\boldsymbol{v}_{\bar{S}}\|_1
+\]
+Since \(\sigma_{s,1}(\boldsymbol{v}) = \|\boldsymbol{v}_{\bar{S}}\|_1\), it follows that
+\[
+\|\boldsymbol{v}\|_1 < 2\,\sigma_{s,1}(\boldsymbol{v}).
+\]
+Thus, the desired inequality holds.
+
+\item 
+Let $A\in\mathbb{R}^{m\times n}$ and fix an integer $s\ge 1$. Then, every $s$-sparse vector $x\in\mathbb{R}^n$ is the unique solution of
+\[
+\min_{z\in\mathbb{R}^n} \|z\|_1 \quad\text{subject to } Az=Ax\text{ and } y=Ax
+\]
+if and only if $A$ satisfies the MNSP of order $s$.
+
+We prove the above statement by establishing both directions.\\
+Suppose that $A$ satisfies the MNSP of order $s$. Let $x\in\mathbb{R}^n$ be any $s$-sparse vector with support
+\[
+S = \{i : x_i\neq 0\}, \quad |S|\le s.
+\]
+Assume that $z\in\mathbb{R}^n$ satisfies
+\[
+Az = Ax.
+\]
+Then we can write
+\[
+z = x + v \quad \text{with } v\in \mathrm{null}(A).
+\]
+If $v=0$, then $z=x$. If $v\neq 0$, note that
+\[
+z_S = x_S + v_S \quad \text{and} \quad z_{\bar{S}} = v_{\bar{S}}.
+\]
+By the triangle inequality we have
+\[
+\|z_S\|_1 \ge \|x_S\|_1 - \|v_S\|_1.
+\]
+Thus,
+\[
+\|z\|_1 = \|z_S\|_1 + \|z_{\bar{S}}\|_1 \ge \|x_S\|_1 - \|v_S\|_1 + \|v_{\bar{S}}\|_1.
+\]
+Since $A$ satisfies the MNSP relative to $S$, we know that
+\[
+\|v_S\|_1 < \|v_{\bar{S}}\|_1.
+\]
+It follows that
+\[
+\|z\|_1 > \|x_S\|_1 = \|x\|_1.
+\]
+Hence, any feasible $z\neq x$ has a strictly larger $\ell_1$ norm than $x$, so $x$ is the unique minimizer.
+\\
+Assume that any $s$-sparse vector $x\in\mathbb{R}^n$ is the unique solution of
+\[
+\min_{z\in\mathbb{R}^n}\|z\|_1 \quad \text{subject to} \quad Az = Ax.
+\]
+We will show that $A$ must satisfy the MNSP of order $s$. We argue by contradiction.
+
+Suppose that $A$ does \emph{not} satisfy the MNSP of order $s$. Then there exists a set $S\subset [n]$ with $|S|\le s$ and a nonzero vector $v\in nullspace(A)$ such that
+\[
+\|v_S\|_1 \ge \|v_{\bar{S}}\|_1.
+\]
+Now, choose any $s$-sparse vector $x\in\mathbb{R}^n$ with support exactly $S$. Since $v\in nullspace(A)$, both x and z = x+v
+satisfy $Az = Ax$. We now compare their $\ell_1$ norms.
+
+Since $x$ is supported on $S$, we have
+\[
+\|x\|_1 = \|x_S\|_1.
+\]
+For the vector $z$, note that
+\[
+z_S = x_S+v_S\quad \text{and}\quad z_{\bar{S}} = v_{\bar{S}}.
+\]
+Thus, by the triangle inequality,
+\[
+\|z_S\|_1 \ge \|x_S\|_1 - \|v_S\|_1,
+\]
+so that
+\[
+\|z\|_1 = \|z_S\|_1 + \|z_{\bar{S}}\|_1 \ge \|x_S\|_1 - \|v_S\|_1 + \|v_{\bar{S}}\|_1
+\]
+because \[ \|z_{\bar{S}}\|_1 = \|v_{\bar{S}}\|_1 \]
+Using the assumption $\|v_S\|_1 \ge \|v_{\bar{S}}\|_1$, it follows that
+\[
+\|z\|_1 \ge \|x_S\|_1 = \|x\|_1.
+\]
+Since $v\neq 0$, we have $z\neq x$. Hence, there exists a distinct feasible vector $z$ with
+\[
+\|z\|_1 \le \|x\|_1,
+\]
+which contradicts the uniqueness of $x$ as the minimizer. 
+
+Thus, our assumption must be false, and $A$ must satisfy the MNSP of order $s$.
+\end{enumerate}
+\end{enumerate}
+\end{document}
