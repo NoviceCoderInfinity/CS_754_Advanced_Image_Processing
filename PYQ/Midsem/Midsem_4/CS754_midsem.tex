@@ -1,0 +1,40 @@
+\title{Midsem: CS 754, Advanced Image Processing, 28th Feb}
+\date{}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[margin=0.2in]{geometry}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\newcommand*\Laplace{\mathop{}\!\mathbin\bigtriangleup}
+\begin{document}
+\vspace{-1in}
+\maketitle
+\vspace{-0.3in}
+\textbf{Instructions:} There are 120 minutes for this exam. This exam is worth 10\% of your final grade. Attempt all questions. Avoid writing lengthy answers. Each question carries 10 points. 
+
+\begin{enumerate}
+\item Let $\boldsymbol{\theta^{\star}}$ be the result of the following minimization problem: $\textrm{min} \|\boldsymbol{\theta}\|_1$ such that $\|\boldsymbol{y}-\boldsymbol{\Phi \Psi \theta}\|_2 \leq \varepsilon$, where $\boldsymbol{y}$ is an $m$-element measurement vector, $\boldsymbol{\Phi}$ is a $m \times n$ measurement matrix ($m < n$), $\boldsymbol{\Psi}$ is a $n \times n$ orthonormal basis in which $n$-element signal $\boldsymbol{x}$ has a sparse representation of the form $\boldsymbol{x} = \boldsymbol{\Psi \theta}$. Notice that $\boldsymbol{y} = \boldsymbol{\Phi x} + \boldsymbol{\eta}$ and $\varepsilon$ is an upper bound on the magnitude of the noise vector $\boldsymbol{\eta}$.
+
+Theorem 3 we studied in class states the following: If $\boldsymbol{\Phi}$ obeys the restricted isometry property with isometry constant $\delta_{2s} < \sqrt{2}-1$, then we have $\|\boldsymbol{\theta} - \boldsymbol{\theta^{\star}}\|_2 \leq C_1 s^{-1/2}\|\boldsymbol{\theta}-\boldsymbol{\theta_s}\|_1 + C_2 \varepsilon$ where $C_1$ and $C_2$ are functions of only $\delta_{2s}$ and where $\forall i \in \mathcal{S}, \boldsymbol{\theta_s}_i = \theta_i; \forall i \notin \mathcal{S}, \boldsymbol{\theta_s}_i = 0$. Here $\mathcal{S}$ is a set containing the $s$ largest magnitude elements of $\boldsymbol{\theta}$. 
+
+A curious (and thus, very good) student asks the following questions: `(1) It appears that the error bound is reduced as $s$ increases, which goes against the very premise of compressed sensing. How do we address this apparent discrepancy? (2) It also appears that the error bound is independent of $m$. How do you address this?' Your job is to answer the student's questions.
+
+\item Write down the objective function (with the meaning of each term clearly stated) for compressed sensing based, coupled tomographic reconstruction of three structurally similar 2D image slices $\boldsymbol{x_1}, \boldsymbol{x_2}, \boldsymbol{x_3}$ (of equal size) from their respective tomographic measurements $\boldsymbol{y_1} = \boldsymbol{R_1 x_1}, \boldsymbol{y_2} = \boldsymbol{R_2 x_2}, \boldsymbol{y_3} = \boldsymbol{R_3 x_3}$ where $\boldsymbol{R_1}, \boldsymbol{R_2}, \boldsymbol{R_3}$ are the respective Radon matrices. State the advantages of the coupled reconstruction over independent reconstruction. What would happen to the coupled reconstruction if $\boldsymbol{R_1} = \boldsymbol{R_2} = \boldsymbol{R_3}$? What would happen to the coupled reconstruction if the three slices are not structurally similar?
+
+\item While random matrices from certain distributions are useful, at least theoretically, as sensing matrices for compressive reconstructions, we have seen in class that it is useful to \emph{design} matrices that are optimal in terms of certain properties - such as the mutual coherence $\mu$ or the restricted isometry property (RIP). What are the relative advantages and disadvantages of $\mu$ versus RIP in this context?
+
+\item State the Fourier slice theorem for 3D images and 2D tomographic projections. 
+
+\item What is the intuitive reason that $\ell_1$ optimization is preferred over $\ell_2$ optimization in compressive reconstruction? You may draw a diagram if required. 
+
+\item Explain the term `common lines' in the context of tomography of 3D objects under unknown projection angles. What is their application (state very briefly in one or two sentences)?
+
+\item The order $s$ restricted isometry constant $\delta_s$ of a sensing matrix $\boldsymbol{\Phi}$ is the smallest constant such that for any $s$-sparse vector $\boldsymbol{x}$, we have $(1-\delta_s) \|\boldsymbol{x}\|^2 \leq \|\boldsymbol{\Phi x}\|^2 \leq (1+\delta_s) \|\boldsymbol{x}\|^2$. If $\delta_s < 1$, we say that $\boldsymbol{\Phi}$ obeys the restricted isometry property (RIP) of order $s$. If a matrix obeys RIP, we know that no $s$-sparse vector can lie in its null-space. Is the converse also true? That is, if no $s$-sparse vector lies in the nullspace of $\boldsymbol{\Phi}$, does that imply that $\boldsymbol{\Phi}$ obeys RIP? Justify.
+\end{enumerate}
+
+
+\end{document}
