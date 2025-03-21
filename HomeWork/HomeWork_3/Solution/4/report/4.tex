@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{helvet}
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\title{Question 4, Assignment 3: CS 754, Spring 2024-25}
+\author{
+\IEEEauthorblockN{
+    \begin{tabular}{cccc}
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Amitesh Shekhar\\
+            IIT Bombay\\
+            22b0014@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Anupam Rawat\\
+            IIT Bombay\\
+            22b3982@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Toshan Achintya Golla\\
+            IIT Bombay\\
+            22b2234@iitb.ac.in
+        \end{minipage} \\
+        \\ 
+    \end{tabular}
+}
+}
+
+\date{March 21, 2025}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem,graphicx}
+\usepackage[margin=0.5in]{geometry}
+
+\begin{document}
+\maketitle
+
+\textbf{Declaration:} The work submitted is our own, and
+we have adhered to the principles of academic honesty while completing and submitting this work. We have not
+referred to any unauthorized sources, and we have not used generative AI tools for the work submitted here.
+
+\begin{enumerate}
+\item Let $R_{\theta}f(\rho)$ be the Radon transform of the image $f(x,y)$ in the direction given by $\theta$ for bin index $\rho$. Let $g$ be a version of $f$ shifted by $(x_0,y_0)$. Then, prove that $R_{\theta}g(\rho) = R_{\theta}f(\rho - (x_0,y_0) \cdot (\cos \theta, \sin \theta))$. \textsf{[8 points]}
+
+\\
+    \makebox[0pt][l]{\hspace{-7pt}\textit{Soln:}} % Aligns "Answer:" to the left
+
+We know that Radon transform of a 2-dimensional image $f(x, y)$, can be obtained by:
+\begin{equation}    
+    R_{\theta}f(\rho) = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} f(x,y) \cdot\delta(\rho - (x cos\theta + y sin\theta)) \cdot dx \cdot dy
+\end{equation}
+Since, $g(x, y)$ is a shifted version of $f(x, y)$ by $(x_0, y_0)$, it can be written as:
+\begin{equation}    
+    g(x, y) = f(x - x_0, y - y_0)
+\end{equation}
+Similarly Radon Transform of $g(x, y)$ defined at angle $\theta$ can be written as
+\begin{equation}
+    R_{\theta}g(\rho) = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} g(x,y) \cdot\delta(\rho - (x cos\theta + y sin\theta)) \cdot dx \cdot dy
+\end{equation}
+Substituting the value of $g(x, y)$ from equation (2), we get:
+\begin{equation}
+    R_{\theta}g(\rho) = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} f(x - x_0, y - y_0) \cdot\delta(\rho - (x cos\theta + y sin\theta)) \cdot dx \cdot dy
+\end{equation}
+Performing the variable substitution: $x' = x - x_0$ and $y' = y - y_0$ in the above equation, we get
+\begin{equation}
+    R_{\theta}g(\rho) = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} f(x', y') \cdot\delta(\rho - ((x' + x_0) cos\theta + (y' + y_0 )sin\theta)) \cdot dx' \cdot dy'
+\end{equation}
+\begin{equation}
+    R_{\theta}g(\rho) = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} f(x', y') \cdot\delta((\rho - x_0 cos\cdot \theta -y_0 \cdot sin\theta) - x' \cdot cos\theta + y'\cdot sin\theta) \cdot dx' \cdot dy'
+\end{equation}
+Comparing the equation (6) with equation (1):
+\[
+    R_{\theta}g(\rho) = R_{\theta}f(\rho - x_0\cdot cos\theta - y_0 \cdot sin\theta)
+\]
+\[
+    R_{\theta}g(\rho) = R_{\theta}f(\rho - \langle (x_0, y_0) \| (cos \theta, sin\theta) \rangle)
+\]
+Hence Proved!
+
+\end{enumerate}
+\end{document}
