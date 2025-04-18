@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage{helvet}
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\title{Question 4, Assignment 5: CS 754, Spring 2024-25}
+\author{
+\IEEEauthorblockN{
+    \begin{tabular}{cccc}
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Amitesh Shekhar\\
+            IIT Bombay\\
+            22b0014@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Anupam Rawat\\
+            IIT Bombay\\
+            22b3982@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Toshan Achintya Golla\\
+            IIT Bombay\\
+            22b2234@iitb.ac.in
+        \end{minipage} \\
+        \\ 
+    \end{tabular}
+}
+}
+
+\date{April 15, 2025}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem,graphicx}
+\usepackage[margin=0.5in]{geometry}
+
+\begin{document}
+\maketitle
+
+\\
+
+
+\begin{enumerate}
+\item Consider that you learned a dictionary $\boldsymbol{D}$ to sparsely represent a certain class $\mathcal{S}$ of images - say handwritten alphabet or digit images. How will you convert $\boldsymbol{D}$ to another dictionary which will sparsely represent the following classes of images? Note that you are not allowed to learn the dictionary all over again, as it is time-consuming. 
+\begin{enumerate}
+\item Class $\mathcal{S}_1$ which consists of images obtained by applying a known affine transform $\boldsymbol{A_1}$ to a subset of the images in class $\mathcal{S}$, and by applying another known affine transform $\boldsymbol{A_2}$ to the other subset. Assume that the images in $\mathcal{S}$ consisted of a foreground against a constant 0-valued background, and that the affine transformations $\boldsymbol{A_1}, \boldsymbol{A_2}$ do not cause the foreground to go outside the image canvas. 
+\item Class $\mathcal{S}_2$ which consists of images obtained by applying an intensity transformation $I^i_{new}(x,y) = \alpha (I^i_{old}(x,y))^2 + \beta (I^i_{old}(x,y)) + \gamma$ to the images in $\mathcal{S}$, where $\alpha,\beta,\gamma$ are known.  
+\item Class $\mathcal{S}_4$ which consists of images obtained by downsampling the images in $\mathcal{S}$ by a factor of $k$ in both X and Y directions. 
+\item Class $\mathcal{S}_5$ which consists of images obtained by applying a blur kernel which is known to be a linear combination of blur kernels belonging to a known set $\mathcal{B}$, to the images in $\mathcal{S}$. 
+\item Class $\mathcal{S}_6$ which consists of 1D signals obtained by applying a Radon transform in a known angle $\theta$ to the images in $\mathcal{S}$. 
+\textsf{[4 x 5 = 20 points]}
+\end{enumerate}
+\end{enumerate}
+\noindent (a) Let $\boldsymbol{A}_1$ and $\boldsymbol{A}_2$ be the known affine transformation operators. Since affine transforms are linear, they can be applied to each atom in the dictionary. Let $D_{A_1}$ and $D_{A_2}$ be the transformed dictionaries obtained by applying $\boldsymbol{A}_1$ and $\boldsymbol{A}_2$ respectively to every reshaped atom of $\boldsymbol{D}$. Then,
+    \[
+    D' = [D_{A_1} \; | \; D_{A_2}]
+    \]
+    This new dictionary $D'$ will be able to sparsely represent both subsets of images, as follows:
+    \[
+    f' = D' \begin{bmatrix}
+        \theta_f \\ 0
+    \end{bmatrix} \quad \text{if } f' \text{ came from } A_1(f),
+    \quad \text{and} \quad
+    f' = D' \begin{bmatrix}
+        0 \\ \theta_f
+    \end{bmatrix} \quad \text{if } f' \text{ came from } A_2(f)
+    \]
+    where $f = D \theta_f$ and $\theta_f$ is $k$-sparse.\\[1em]
+
+\noindent (b) For an image $f = D\theta$, consider the intensity transformation:
+    \[
+    f' = \alpha (f \odot f) + \beta f + \gamma \mathbf{1}
+    \]
+    where $\odot$ denotes point-wise multiplication and $\mathbf{1}$ is a vector of all ones. Expanding:
+    \[
+    f' = \alpha (D\theta \odot D\theta) + \beta D\theta + \gamma \mathbf{1}
+    \]
+    Let $\widetilde{D}$ be a matrix formed by element-wise products of all pairs of dictionary atoms:
+    \[
+    \widetilde{D}_{(i,j)} = D_i \odot D_j \quad \forall i,j
+    \]
+    and $\widetilde{\theta} = \text{vec}(\theta\theta^T)$, then:
+    \[
+    f' = [\mathbf{1} \; | \; D \; | \; \widetilde{D}]
+    \begin{bmatrix}
+        \gamma \\ \beta \theta \\ \alpha \widetilde{\theta}
+    \end{bmatrix}
+    \]
+    So, the new dictionary is:
+    \[
+    D' = [\mathbf{1} \; | \; D \; | \; \widetilde{D}]
+    \]
+    which contains the constant vector, the original dictionary atoms, and all pairwise element-wise products of atoms.\\[1em]
+
+\noindent (c) Downsampling by a factor $k$ is a linear operation that reduces spatial resolution. Let $S_k$ be the downsampling operator that maps an image of size $(h, w)$ to $(h/k, w/k)$. Then, applying this to each atom in $D$ (after reshaping) gives:
+    \[
+    D'_i = \text{vec}(S_k(\text{reshape}(D_i))) \quad \forall i
+    \]
+    So the new dictionary is:
+    \[
+    D' = [D'_1 \; D'_2 \; \dots \; D'_K]
+    \]
+    where each $D'_i$ is a downsampled version of $D_i$.\\[1em]
+
+\noindent (d) Suppose the blur kernel $b$ is given by $b = \sum_{j=1}^{n} \beta_j b_j$ for known $\{b_j\} \in \mathcal{B}$. Since convolution is linear:
+    \[
+    f' = b * \text{reshape}(f) = \left( \sum_j \beta_j b_j \right) * \left( \sum_i D_i \theta_i \right)
+    = \sum_{i,j} \beta_j (b_j * \text{reshape}(D_i)) \theta_i
+    \]
+    Define $D^{(j)}$ as the dictionary obtained by convolving each atom $D_i$ (reshaped) with $b_j$:
+    \[
+    D^{(j)}_i = \text{vec}(b_j * \text{reshape}(D_i)) \quad \Rightarrow \quad D' = \sum_j \beta_j D^{(j)}
+    \]
+    So $D'$ is the linear combination of the blurred versions of the original dictionary atoms.\\[1em]
+
+\noindent (e) Let $R_\theta$ denote the Radon transform at angle $\theta$. Since it's a linear operation:
+    \[
+    f' = R_\theta(\text{reshape}(f)) = R_\theta \left( \sum_i \text{reshape}(D_i) \theta_i \right)
+    = \sum_i R_\theta(\text{reshape}(D_i)) \theta_i
+    \]
+    Let $D'_i = R_\theta(\text{reshape}(D_i))$, vectorised. Then:
+    \[
+    D' = [D'_1 \; D'_2 \; \dots \; D'_K]
+    \]
+    is the new dictionary, where each atom is transformed by the Radon operator.
+
+\end{document}

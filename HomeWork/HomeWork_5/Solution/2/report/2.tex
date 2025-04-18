@@ -1,0 +1,113 @@
+\documentclass{article}
+\usepackage{helvet}
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\title{Question 2, Assignment 5: CS 754, Spring 2024-25}
+\author{
+\IEEEauthorblockN{
+    \begin{tabular}{cccc}
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Amitesh Shekhar\\
+            IIT Bombay\\
+            22b0014@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Anupam Rawat\\
+            IIT Bombay\\
+            22b3982@iitb.ac.in
+        \end{minipage} & 
+        \begin{minipage}[t]{0.23\textwidth}
+            \centering
+            Toshan Achintya Golla\\
+            IIT Bombay\\
+            22b2234@iitb.ac.in
+        \end{minipage} \\
+        \\ 
+    \end{tabular}
+}
+}
+
+\date{April 17, 2025}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem,graphicx}
+\usepackage[margin=0.5in]{geometry}
+
+\begin{document}
+\maketitle
+
+\\
+
+
+\begin{enumerate}
+\item Read the wiki article on L1-norm PCA: \url{https://en.wikipedia.org/wiki/L1-norm_principal_component_analysis}. List any three fundamental ways in which robust PCA that we did in class differs from L1-norm PCA. \textsf{[15 points]}
+\end{enumerate}
+\\
+\makebox[0pt][l]{\hspace{-7pt}\textit{Soln:}} % Aligns "Answer:" to the left
+\\
+\noindent \textbf{1. Problem Formulation}:
+\begin{itemize}
+    \item \textit{RPCA} decomposes a matrix into low-rank + sparse components. RPCA tries solves the following optimization problem
+    \[
+        min_{L,S} ||L||_* + \frac{1}{\sqrt{max(n_1, n_2)}} ||S||_1 \text{    where M = S + L and M } \in \mathbb{R}^{n_1 \times n_2}
+    \]
+    \item \textit{L1-norm PCA} finds principal components by maximizing L1 dispersion of projected data
+    \[
+        max_Q ||X^TQ||_1 \text{ where } Q = [q_1, q_2, ..., q_K] \in \mathbb{R} ^{D\times K}\text{ such that } Q^TQ = I_k
+    \]
+\end{itemize}
+
+\noindent \textbf{2. Outlier Handling Mechanism}:
+\begin{itemize}
+    \item \textit{RPCA} ensures that the outliers are isolated in S. Under incoherence conditions, RPCA provably recovers L and S even if outliers are large but sparse.
+    \item \textit{L1-norm PCA} has a median-like behavior that reduces sensitivity to outliers without explicitly modeling them. Outliers influence the principal components less than in L2-PCA, but they are not identified explicitly.
+\end{itemize}
+
+\noindent \textbf{3. Computational and Theoretical Properties}:
+\begin{itemize}
+    \item \textit{RPCA} is convex, ensuring a global optimum
+    \item \textit{L1-norm PCA} is non-convex, making it prone to getting stuck in local optima
+\end{itemize}
+
+\noindent \textbf{Output}
+\begin{itemize}
+    \item \textit{RPCA} outputs seperable components (L/S)
+    \item \textit{L1-norm PCA} outputs robust eigenvectors
+\end{itemize}
+
+\noindent \textbf{Output}
+\begin{itemize}
+    \item \textit{RPCA} is used for data with sparse and large corruptions (eg incase of sensor failures)
+    \item \textit{L1-norm PCA} is used on data with diffuse outliers (eg heavy tailed noise)
+\end{itemize}
+
+
+
+
+\section*{References}
+\noindent 1. \url{https://en.wikipedia.org/wiki/L1-norm_principal_component_analysis}\\
+\noindent 2. \url{https://candes.su.domains/teaching/math301/Lectures/rpca.pdf}
+
+\end{document}
